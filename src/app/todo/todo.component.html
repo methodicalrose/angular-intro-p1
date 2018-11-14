@@ -1,0 +1,35 @@
+<div class="container-fluid">
+  <div class="row">
+    <h1 class="text-center">TODOS</h1>
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <td>ID</td>
+        <td>Name</td>
+        <td>Tags</td>
+        <td>Complete</td>
+        <td>Delete</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let todo of todos">
+        <ng-container *ngIf="!todo.isDeleted">
+          <td>{{ todo.id }}</td>
+          <td [ngClass]="{ 'completed' : todo.isCompleted }">{{ todo.name }}</td>
+          <td>{{ todo.tags }}</td>
+          <td><button class="btn btn-warning" (click)="toggleCompleteTodo(todo)">{{ renderIsCompletedText(todo) }}</button></td>
+          <td><button class="btn btn-danger" (click)="toggleDeleteTodo(todo)">Delete</button></td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+
+  <form (ngSubmit)="addTodo()">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" class="form-control" id="name" name="name" placeholder="Name" [(ngModel)]="newTodo.name">
+    </div>
+    <button class="btn btn-success">Add</button>
+  </form>
+</div>
