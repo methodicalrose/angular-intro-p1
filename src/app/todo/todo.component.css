@@ -1,3 +1,7 @@
 .completed {
   text-decoration: line-through;
 }
+
+.badge-margin {
+  margin-right: 4px;
+}
