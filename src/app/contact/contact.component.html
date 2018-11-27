@@ -1,0 +1,63 @@
+<div class="container-fluid">
+  <div class="row">
+    <h1 class="text-center">Contact Book</h1>
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <td>ID</td>
+        <td>Name</td>
+        <td>Email</td>
+        <td>Phone</td>
+        <td>Tags</td>
+        <td>Edit</td>
+        <td>Delete</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let contact of contacts | alphabetical">
+        <ng-container>
+          <td>{{ contact.id }}</td>
+          <td>{{ contact.name }}</td>
+          <td>{{ contact.email }}</td>
+          <td>{{ contact.phone }}</td>
+          <td><span class="badge tag" *ngFor="let tag of contact.tags" (click)="getContacts(tag)">{{ tag }}</span></td>
+          <td><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#myModal" (click)="getEditedContact(contact)">Edit</button></td>
+          <td>Delete</td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Edit {{ editedContact.name }}</h4>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group">
+          <form>
+            <div class="form-group">
+              <label for="name">Name:</label>
+              <input type="text" class="form-control" id="name" name="name" [(ngModel)]="editedContact.name">
+            </div>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input type="text" class="form-control" id="email" name="email" [(ngModel)]="editedContact.email">
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone:</label>
+              <input type="text" class="form-control" id="phone" name="phone" [(ngModel)]="editedContact.phone">
+            </div>
+            <button class="btn btn-success" data-dismiss="modal">Save</button>
+          </form>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

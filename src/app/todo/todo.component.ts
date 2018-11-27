@@ -36,17 +36,13 @@ export class TodoComponent implements OnInit {
 
   deleteTodo(todo: TodoInterface) {
     const remove: number = this.todos.indexOf(todo);
-    if (remove !== -1)  {
+    if (remove !== -1) {
       this.todos.splice(remove, 1);
     }
   }
 
   renderIsCompletedText(todo: TodoInterface) {
     return todo.isCompleted ? 'Uncomplete' : 'Complete';
-  }
-
-  renderTags(tags): String {
-    return tags.join(', ');
   }
 
   ngOnInit() {
