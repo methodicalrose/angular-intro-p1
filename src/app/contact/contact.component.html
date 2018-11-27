@@ -2,12 +2,18 @@
   <div class="row">
     <h1 class="text-center">Contact Book</h1>
   </div>
+  <div class="row"><button class="btn btn-info col-lg-offset-11" data-toggle="modal" data-target="#trashModal">Trash</button></div>
   <table class="table table-striped">
     <thead>
       <tr>
-        <td>ID</td>
-        <td>Name</td>
-        <td>Email</td>
+        <td><span (click)="changeFilterBy('id')">ID</span>
+        <span (click)="toggleReverse()" class="dropdown"><i class="caret"></i></span></td>
+        <td><span (click)="changeFilterBy('firstName')">First Name</span>
+        <span (click)="toggleReverse()" class="dropdown"><i class="caret"></i></span></td>
+        <td><span (click)="changeFilterBy('lastName')">Last Name</span>
+        <span (click)="toggleReverse()" class="dropdown"><i class="caret"></i></span></td>
+        <td><span (click)="changeFilterBy('email')">Email</span>
+        <span (click)="toggleReverse()" class="dropdown"><i class="caret"></i></span></td>
         <td>Phone</td>
         <td>Tags</td>
         <td>Edit</td>
@@ -15,15 +21,16 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let contact of contacts | alphabetical">
-        <ng-container>
+      <tr *ngFor="let contact of (contacts | reverse: isReversed | alphabetical: filterBy)">
+        <ng-container *ngIf="!contact.isDeleted">
           <td>{{ contact.id }}</td>
-          <td>{{ contact.name }}</td>
+          <td>{{ contact.firstName }}</td>
+          <td>{{ contact.lastName }}</td>
           <td>{{ contact.email }}</td>
           <td>{{ contact.phone }}</td>
           <td><span class="badge tag" *ngFor="let tag of contact.tags" (click)="getContacts(tag)">{{ tag }}</span></td>
           <td><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#myModal" (click)="getEditedContact(contact)">Edit</button></td>
-          <td>Delete</td>
+          <td><button class="btn btn-danger" type="button" (click)="toggleDeleteContact(contact)">Delete</button></td>
         </ng-container>
       </tr>
     </tbody>
@@ -37,14 +44,18 @@
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title" id="myModalLabel">Edit {{ editedContact.name }}</h4>
+        <h4 class="modal-title" id="myModalLabel">Edit {{ editedContact.firstName }} {{ editedContact.lastName }}</h4>
       </div>
       <div class="modal-body">
         <ul class="list-group">
           <form>
             <div class="form-group">
-              <label for="name">Name:</label>
-              <input type="text" class="form-control" id="name" name="name" [(ngModel)]="editedContact.name">
+              <label for="firstName">First Name:</label>
+              <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="editedContact.firstName">
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name:</label>
+              <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="editedContact.lastName">
             </div>
             <div class="form-group">
               <label for="email">Email:</label>
@@ -56,6 +67,41 @@
             </div>
             <button class="btn btn-success" data-dismiss="modal">Save</button>
           </form>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="trashModal" tabindex="-1" role="dialog" aria-labelledby="trashModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="trashModalLabel">Trash</h4>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <td>Name</td>
+                <td>Delete</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let deletedContact of contacts">
+                <ng-container *ngIf="deletedContact.isDeleted">
+                  <td>{{ deletedContact.firstName }} {{ deletedContact.lastName }}</td>
+                  <td>
+                    <button class="btn btn-warning" (click)="deleteContact(deletedContact)">Delete</button>
+                  </td>
+                </ng-container>
+              </tr>
+            </tbody>
+          </table>
         </ul>
       </div>
     </div>

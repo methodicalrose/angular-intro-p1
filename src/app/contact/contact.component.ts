@@ -13,6 +13,8 @@ export class ContactComponent implements OnInit {
 
   contacts: ContactInterface[];
   editedContact: ContactInterface = new Contact();
+  filter = '';
+  shouldReverse = false;
 
   constructor() { }
 
@@ -32,6 +34,27 @@ export class ContactComponent implements OnInit {
   getEditedContact(contact) {
     this.editedContact = contact;
   }
+
+  toggleDeleteContact(contact) {
+    contact.isDeleted = !contact.isDeleted;
+  }
+
+  deleteContact(contact) {
+    const remove: number = this.contacts.indexOf(contact);
+    if(remove !== -1) {
+      this.contacts.splice(remove, 1);
+    }
+  }
+
+  get filterBy() { return this.filter; }
+
+  changeFilterBy(filter: string) {
+    this.filter = filter;
+  }
+
+  get isReversed() { return this.shouldReverse; }
+
+  toggleReverse() { this.shouldReverse = !this.shouldReverse; }
 
   ngOnInit() {
     this.getContacts('all');

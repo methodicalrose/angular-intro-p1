@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { TodoComponent } from './todo/todo.component';
 import { ContactComponent } from './contact/contact.component';
 import { AlphabeticalPipe } from './pipes/alphabetical.pipe';
+import { ReversePipe } from './pipes/reverse.pipe';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { AlphabeticalPipe } from './pipes/alphabetical.pipe';
     HomeComponent,
     TodoComponent,
     ContactComponent,
-    AlphabeticalPipe
+    AlphabeticalPipe,
+    ReversePipe
   ],
   imports: [
     AppRoutingModule,

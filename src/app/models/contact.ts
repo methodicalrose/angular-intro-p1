@@ -1,6 +1,7 @@
 export class Contact {
   id: number;
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phone: string;
   tags: string[];
