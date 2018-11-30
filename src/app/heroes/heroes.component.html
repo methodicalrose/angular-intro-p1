@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <h1 class="text-center">Heroes and Villains</h1>
+  </div>
+  <div class="row">
+    <div class="btn-group filter-toggle" role="group">
+      <button class="btn btn-default" [ngClass]="{ 'active' : filterIsActive('hero') }" (click)="updateFilter('hero')">Hero</button>
+      <button class="btn btn-default" [ngClass]="{ 'active' : filterIsActive('all') }" (click)="updateFilter('all')">All</button>
+      <button class="btn btn-default" [ngClass]="{ 'active' : filterIsActive('villain') }" (click)="updateFilter('villain')">Villain</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4" *ngFor="let hero of heroes">
+      <div class="heroBox" [ngClass]="{ 'hero' : hero.hero, 'villain' : !hero.hero }">
+        <h1 class="text-center">{{ hero.name }}</h1>
+        <a class="btn btn-info center-button" [routerLink]="['/hero/', hero.id]">View</a>
+      </div>
+    </div>
+  </div>
+</div>
