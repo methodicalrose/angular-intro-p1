@@ -5,4 +5,5 @@ export class Hero {
   alter: string;
   bio: string;
   img: string;
+  powers: string[];
 }

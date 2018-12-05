@@ -2,10 +2,13 @@
   <div class="row">
     <h1 class="text-center">Heroes and Villains</h1>
   </div>
+  <div class="row" *ngIf="hasFilter">
+    <button class="btn btn-primary" routerLink="/heroes">&times; Clear Filter</button>
+  </div>
   <div class="row">
     <div class="btn-group filter-toggle" role="group">
       <button class="btn btn-default" [ngClass]="{ 'active' : filterIsActive('hero') }" (click)="updateFilter('hero')">Hero</button>
-      <button class="btn btn-default" [ngClass]="{ 'active' : filterIsActive('all') }" (click)="updateFilter('all')">All</button>
+      <button class="btn btn-default" [ngClass]="{ 'active' : filterIsActive() }" (click)="updateFilter()">All</button>
       <button class="btn btn-default" [ngClass]="{ 'active' : filterIsActive('villain') }" (click)="updateFilter('villain')">Villain</button>
     </div>
   </div>

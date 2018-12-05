@@ -5,4 +5,5 @@ export interface HeroInterface {
   alter: string;
   bio: string;
   img: string;
+  powers: string[];
 }
